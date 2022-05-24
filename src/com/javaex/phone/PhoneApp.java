@@ -11,6 +11,8 @@ public class PhoneApp {
 		boolean flag = true;
 		Scanner sc = new Scanner(System.in);
 		PhoneDao phoneDao = new PhoneDao();
+		String name = null, hp = null, company = null;
+		int idNum;
 		
 		System.out.println("**********************************************");
 		System.out.println("*           전화번호 관리 프로그램           *");
@@ -42,11 +44,11 @@ public class PhoneApp {
 					System.out.println("<2.등록>");
 					sc.nextLine();
 					System.out.print("이름 > ");
-					String name = sc.nextLine();
+					name = sc.nextLine();
 					System.out.print("휴대전화 > ");
-					String hp = sc.nextLine();
+					hp = sc.nextLine();
 					System.out.print("회사전화 > ");
-					String company = sc.nextLine();
+					company = sc.nextLine();
 					
 					phoneDao.phoneInsert(new PersonVo(name, hp, company));
 					
@@ -54,7 +56,18 @@ public class PhoneApp {
 					
 					
 				case 3: //리스트에서 수정
+					System.out.println("<3.수정>");
+					System.out.print("번호 > ");
+					idNum = sc.nextInt();
+					sc.nextLine();
+					System.out.print("이름 > ");
+					name = sc.nextLine();
+					System.out.print("휴대전화 > ");
+					hp = sc.nextLine();
+					System.out.print("회사전화 > ");
+					company = sc.nextLine();
 					
+					phoneDao.phoneUpdate(new PersonVo(idNum, name, hp, company));
 					
 					break;
 					
