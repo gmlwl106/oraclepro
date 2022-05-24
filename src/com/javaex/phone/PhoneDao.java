@@ -73,6 +73,47 @@ public class PhoneDao {
 		return personList;
 	}
 	
+	
+	//PhoneDB 추가 등록 [insert] 메소드
+	public int phoneInsert(PersonVo personVo) {
+		int count = -1;
+		
+		try {
+			//DB 연결
+			getConnection();
+			
+			// 3. SQL문 준비 / 바인딩 / 실행
+			//SQL문 준비
+			String query = "";
+			query += " insert into person ";
+			query += " values (seq_person_id.nextval, ?, ?, ?) ";
+			
+			//바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, personVo.getName());
+			pstmt.setString(2, personVo.getHp());
+			pstmt.setString(3, personVo.getCompany());
+			
+			//실행
+			count = pstmt.executeUpdate();
+			
+			//결과처리
+			System.out.println("[" + count + "건 등록 되었습니다.]");
+		
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			//자원 정리
+			close();
+		}
+		
+		return count;
+	}
+	
+	
+	
+	
+	
 	//자원 정리 메소드
 	private void close() {
 		// 5. 자원정리
@@ -90,5 +131,7 @@ public class PhoneDao {
 			System.out.println("error:" + e);
 		}
 	}
+
+	
 
 }
