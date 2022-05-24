@@ -19,8 +19,8 @@ public class PhoneApp {
 		while(flag) {
 
 			System.out.println();
-			System.out.println("1.리스트   2.등록   3.삭제   4.검색   5.종료");
-			System.out.println("----------------------------------------------");
+			System.out.println("1.리스트   2.등록   3.수정   4.삭제   5.검색   6.종료");
+			System.out.println("-------------------------------------------------------");
 			System.out.print(">메뉴번호: ");
 			int num = sc.nextInt();
 			
@@ -53,19 +53,25 @@ public class PhoneApp {
 					break;
 					
 					
-				case 3: //리스트에서 삭제
+				case 3: //리스트에서 수정
 					
 					
 					break;
 					
 					
-				case 4: //리스트에서 검색
+				case 4: //리스트에서 삭제
+									
+									
+					break;
+							
+					
+				case 5: //리스트에서 검색
 					
 					
 					break;
 					
 					
-				case 5: //종료
+				case 6: //종료
 					System.out.println("**********************************************");
 					System.out.println("*                 감사합니다                 *");
 					System.out.println("**********************************************");
