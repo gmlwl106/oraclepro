@@ -37,6 +37,7 @@ public class PhoneDao {
 		
 		//리스트 준비
 		List<PersonVo> personList = new ArrayList<PersonVo>();
+		
 		try {
 			//DB 연결
 			getConnection();
@@ -152,8 +153,90 @@ public class PhoneDao {
 	}
 	
 	
+	//PhoneDB 삭제 [delete] 메소드
+	public int phoneDelete(int idNum) {
+		int count = -1;
+		
+		try {
+			//DB 연결
+			getConnection();
+			
+			// 3. SQL문 준비 / 바인딩 / 실행
+			//SQL문 준비
+			String query = "";
+			query += " delete person ";
+			query += " where person_id = ? ";
+			
+			//바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, idNum);
+			
+			//실행
+			count = pstmt.executeUpdate();
+			
+			//결과처리
+			System.out.println("[" + count + "건 삭제 되었습니다.]");
+		
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			//자원 정리
+			close();
+		}
+		
+		return count;
+	}
 	
 	
+	//PhoneDB 검색 메소드
+	public List<PersonVo> phoneSelect(String keyword) {
+
+		//리스트 준비
+		List<PersonVo> personList = new ArrayList<PersonVo>();
+		
+		try {
+			//DB 연결
+			getConnection();
+			
+			// 3. SQL문 준비 / 바인딩 / 실행
+			//SQL문 준비
+			String query = "";
+			query += " select person_id ";
+			query += "         ,name ";
+			query += "         ,hp ";
+			query += "         ,company ";
+			query += " from person ";
+			query += " where name like '%"+keyword+"%' ";
+			query += " or hp like '%"+keyword+"%' ";
+			query += " or company like '%"+keyword+"%' ";
+			
+			//바인딩
+			pstmt = conn.prepareStatement(query);
+			
+			//실행
+			rs = pstmt.executeQuery();
+			
+			//결과처리
+			while(rs.next()) {
+				int personId = rs.getInt(1);
+				String name = rs.getString(2);
+				String hp = rs.getString(3);
+				String company = rs.getString(4);
+				
+				personList.add(new PersonVo(personId, name, hp, company));
+			}
+		
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			//자원 정리
+			close();
+		}
+		
+		return personList;
+	}
+	
+
 	//자원 정리 메소드
 	private void close() {
 		// 5. 자원정리
@@ -171,6 +254,10 @@ public class PhoneDao {
 			System.out.println("error:" + e);
 		}
 	}
+
+	
+
+	
 
 	
 
