@@ -111,6 +111,46 @@ public class PhoneDao {
 	}
 	
 	
+	//PhoneDB 수정 [update] 메소드
+	public int phoneUpdate(PersonVo personVo) {
+		int count = -1;
+		
+		try {
+			//DB 연결
+			getConnection();
+			
+			// 3. SQL문 준비 / 바인딩 / 실행
+			//SQL문 준비
+			String query = "";
+			query += " update person ";
+			query += " set name = ?, ";
+			query += "     hp = ?, ";
+			query += "     company = ? ";
+			query += " where person_id = ? ";
+			
+			//바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, personVo.getName());
+			pstmt.setString(2, personVo.getHp());
+			pstmt.setString(3, personVo.getCompany());
+			pstmt.setInt(4, personVo.getPersonId());
+			
+			//실행
+			count = pstmt.executeUpdate();
+			
+			//결과처리
+			System.out.println("[" + count + "건 수정 되었습니다.]");
+		
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			//자원 정리
+			close();
+		}
+		
+		return count;
+	}
+	
 	
 	
 	
@@ -131,6 +171,8 @@ public class PhoneDao {
 			System.out.println("error:" + e);
 		}
 	}
+
+	
 
 	
 
