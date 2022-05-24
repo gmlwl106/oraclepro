@@ -40,11 +40,12 @@ public class PhoneApp {
 					
 				case 2: //리스트에 등록
 					System.out.println("<2.등록>");
-					System.out.println("이름 > ");
+					sc.nextLine();
+					System.out.print("이름 > ");
 					String name = sc.nextLine();
-					System.out.println("휴대전화 > ");
+					System.out.print("휴대전화 > ");
 					String hp = sc.nextLine();
-					System.out.println("회사전화 > ");
+					System.out.print("회사전화 > ");
 					String company = sc.nextLine();
 					
 					phoneDao.phoneInsert(new PersonVo(name, hp, company));
