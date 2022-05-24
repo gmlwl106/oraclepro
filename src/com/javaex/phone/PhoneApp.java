@@ -73,13 +73,29 @@ public class PhoneApp {
 					
 					
 				case 4: //리스트에서 삭제
-									
+					System.out.println("<4.삭제>");
+					System.out.print("번호 > ");
+					idNum = sc.nextInt();
+					
+					phoneDao.phoneDelete(idNum);
 									
 					break;
 							
 					
 				case 5: //리스트에서 검색
+					System.out.println("<5.검색>");
+					sc.nextLine();
+					System.out.print("검색어 > ");
+					String keyword = sc.nextLine();
 					
+					List<PersonVo> psearchList = phoneDao.phoneSelect(keyword);
+					
+					for(PersonVo p : psearchList) {
+						System.out.println(p.getPersonId() + ".\t"
+								+ p.getName() + "\t"
+								+ p.getHp() + "\t"
+								+ p.getCompany());
+					}
 					
 					break;
 					
@@ -89,6 +105,7 @@ public class PhoneApp {
 					System.out.println("*                 감사합니다                 *");
 					System.out.println("**********************************************");
 					flag = false;
+					sc.close();
 					break;
 					
 					
